@@ -3,23 +3,72 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 100px;
+  background-color: #3b46a4;
+}
+
+h1 {
+  font-size: 60px;
+  color: rgb(255, 255, 255);
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
+    0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
 }
 
 #board-container {
   height: 40vw;
   width: 40vw;
-  background-color: black;
+  background-color: #ff0167c2;
   gap: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
 
+  box-shadow: 0 0 7px #ff0167, 0 0 10px #ffffff, 0 0 21px #ffffff,
+    0 0 42px #ff0167, 0 0 82px #ff0167, 0 0 92px #ff0167, 0 0 102px #ff0167,
+    0 0 151px #ff0167;
+
   .cell {
-    background-color: white;
+    background-color: #3b46a4;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 5vw;
     user-select: none;
+    color: #fff;
+    text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
+      0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+  }
+}
+
+dialog {
+  border: none;
+  padding: 0;
+}
+
+#dialog-content {
+  background-color: #3a3f64;
+  color: white;
+  height: 200px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  #game-result {
+    font-size: 40px;
+  }
+
+  #reset-button {
+    height: 50px;
+    width: 100px;
+    border: none;
+    background-color: rgb(80, 80, 184);
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+  }
+
+  #reset-button:hover {
+    background-color: rgb(75, 75, 167);
   }
 }
