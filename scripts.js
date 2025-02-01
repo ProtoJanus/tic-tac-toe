@@ -10,6 +10,8 @@ function player(name, signifier) {
   return { getName, getSignifier };
 }
 
+// declare players before their use in the modules below
+
 const player1 = player("player1", "X");
 const player2 = player("player2", "O");
 
