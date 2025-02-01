@@ -38,9 +38,14 @@ const gameController = (function () {
     board.changeBoardArray(index, currentPlayer.getSignifier());
     board.changeBoardHTML(square, currentPlayer.getSignifier());
 
-    if (checkForWin(board)) {
+    if (checkForWin(board) === "win") {
       dialog.showModal();
       gameResult.innerHTML = `Player ${currentPlayer.getSignifier()} Wins!`;
+      currentPlayer = player1;
+    } else if (checkForWin(board) === "stalemate") {
+      dialog.showModal();
+      gameResult.innerHTML = `Stalemate! No Winner!`;
+      currentPlayer = player1;
     } else {
       currentPlayer = currentPlayer === player1 ? player2 : player1;
     }
@@ -60,18 +65,28 @@ const gameController = (function () {
       [0, 4, 8],
       [2, 4, 6],
     ];
+    let currentBoard = board.getBoardState();
+
+    let filledBoard = true;
+    for (let i = 0; i < currentBoard.length; i++) {
+      if (currentBoard[i] === " ") {
+        filledBoard = false;
+        console.log(filledBoard);
+      }
+    }
 
     for (let condition of winConditions) {
       let [a, b, c] = condition;
 
-      let currentBoard = board.getBoardState();
       // checks if currentBoard[a] is a truthy value, then checks if there is a win
       if (currentBoard[a] !== " ")
         if (
           currentBoard[a] === currentBoard[b] &&
           currentBoard[a] === currentBoard[c]
         ) {
-          return true;
+          return "win";
+        } else if (filledBoard) {
+          return "stalemate";
         }
     }
 
