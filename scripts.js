@@ -78,7 +78,7 @@ const gameController = (function () {
     for (let condition of winConditions) {
       let [a, b, c] = condition;
 
-      // checks if currentBoard[a] is a truthy value, then checks if there is a win
+      // checks if currentBoard[a] is string with a space or not, then checks if there is a win
       if (currentBoard[a] !== " ")
         if (
           currentBoard[a] === currentBoard[b] &&
