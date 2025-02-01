@@ -17,6 +17,7 @@ const player2 = player("player2", "O");
 
 const gameController = (function () {
   let currentPlayer = player1;
+  const dialog = document.querySelector("dialog");
 
   const getCurrentPlayer = () => {
     return currentPlayer;
@@ -27,7 +28,44 @@ const gameController = (function () {
 
     board.changeBoardArray(index, currentPlayer.getSignifier());
     board.changeBoardHTML(square, currentPlayer.getSignifier());
-    currentPlayer = currentPlayer === player1 ? player2 : player1;
+
+    if (checkForWin(board)) {
+      dialog.showModal();
+    } else {
+      currentPlayer = currentPlayer === player1 ? player2 : player1;
+    }
+  };
+
+  const checkForWin = (board) => {
+    const winConditions = [
+      // horizontal win
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      // vertical win
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      // diagonal win
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    for (let condition of winConditions) {
+      let [a, b, c] = condition;
+
+      let currentBoard = board.getBoardState();
+      // checks if currentBoard[a] is a truthy value, then checks if there is a win
+      if (currentBoard[a] !== " ")
+        if (
+          currentBoard[a] === currentBoard[b] &&
+          currentBoard[a] === currentBoard[c]
+        ) {
+          return true;
+        }
+    }
+
+    return false;
   };
 
   return { getCurrentPlayer, playRound };
