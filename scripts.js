@@ -17,7 +17,15 @@ const player2 = player("player2", "O");
 
 const gameController = (function () {
   let currentPlayer = player1;
+
   const dialog = document.querySelector("dialog");
+  const resetButton = document.querySelector("#reset-button");
+
+  resetButton.addEventListener("click", () => {
+    dialog.close();
+    board.generateHTMLBoard();
+    board.resetBoardArray();
+  });
 
   const getCurrentPlayer = () => {
     return currentPlayer;
@@ -25,12 +33,14 @@ const gameController = (function () {
 
   const playRound = (square) => {
     let index = square.id.split("-")[1] - 1;
+    const gameResult = document.querySelector("#game-result");
 
     board.changeBoardArray(index, currentPlayer.getSignifier());
     board.changeBoardHTML(square, currentPlayer.getSignifier());
 
     if (checkForWin(board)) {
       dialog.showModal();
+      gameResult.innerHTML = `Player ${currentPlayer.getSignifier()} Wins!`;
     } else {
       currentPlayer = currentPlayer === player1 ? player2 : player1;
     }
@@ -82,6 +92,7 @@ const board = (function () {
 
   const generateHTMLBoard = () => {
     const boardContainer = document.querySelector("#board-container");
+    boardContainer.innerHTML = "";
     let id = 1;
     initialBoardState.forEach((element) => {
       const cell = document.createElement("div");
@@ -109,11 +120,16 @@ const board = (function () {
     square.innerHTML = signifier;
   };
 
+  const resetBoardArray = () => {
+    currentBoardState = [...initialBoardState];
+  };
+
   return {
     getBoardState,
     generateHTMLBoard,
     changeBoardArray,
     changeBoardHTML,
+    resetBoardArray,
   };
 })();
 
